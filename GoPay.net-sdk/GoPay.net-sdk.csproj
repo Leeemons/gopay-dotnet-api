@@ -3,7 +3,8 @@
     <TargetFramework>netstandard20</TargetFramework>    
     <PackageId>GoPay.NETCore</PackageId>    
     <Authors>Leemons</Authors>    
-    <Product>GoPay.NETCore</Product>
+    <Product>GoPay.NETCore</Product>    
+    <IsPackable>true</IsPackable>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
