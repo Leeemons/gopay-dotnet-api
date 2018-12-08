@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using GoPay.Common;
 using GoPay.Model.Payments;
 using GoPay.Model.Payment;
+using Xunit;
 
 namespace GoPay.Tests
-{
-    [TestClass()]
+{    
     public class CardTokenTests
     {
 
@@ -66,7 +65,7 @@ namespace GoPay.Tests
         }
 
 
-        [TestMethod()]
+        [Fact]
         public void GPConnectorTestPaymentWithCardToken()
         {
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
@@ -75,8 +74,8 @@ namespace GoPay.Tests
             try
             {
                 Payment result = connector.GetAppToken().CreatePayment(basePayment);
-                Assert.IsNotNull(result);
-                Assert.IsNotNull(result.Id);
+                Assert.NotNull(result);
+                Assert.NotEqual(0, result.Id);
 
                 Console.WriteLine("Payment id: {0}", result.Id);
                 Console.WriteLine("Payment gw_url: {0}", result.GwUrl);
@@ -96,7 +95,7 @@ namespace GoPay.Tests
         }
 
 
-        [TestMethod()]
+        [Fact]
         public void GPConnectorTestCardTokenPaymentStatus()
         {
             long id = 3052269740;
@@ -105,7 +104,7 @@ namespace GoPay.Tests
             try
             {
                 var payment = connector.GetAppToken().PaymentStatus(id);
-                Assert.IsNotNull(payment.Id);
+                Assert.NotEqual(0, payment.Id);
 
                 Console.WriteLine("Payment id: {0}", payment.Id);
                 Console.WriteLine("Payment gw_url: {0}", payment.GwUrl);

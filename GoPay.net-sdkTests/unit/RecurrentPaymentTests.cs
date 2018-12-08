@@ -1,17 +1,17 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿
 using System;
 using GoPay.Common;
 using GoPay.Model.Payments;
 using GoPay.Model.Payment;
 using System.Collections.Generic;
+using Xunit;
 
 namespace GoPay.Tests
-{
-    [TestClass()]
+{    
     public class RecurrentPaymentTests
     {
 
-        [TestMethod()]
+        [Fact]
         public void GPConnectorTestCreateRecurrentPayment()
         {
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
@@ -30,8 +30,8 @@ namespace GoPay.Tests
             try
             {
                 Payment result = connector.GetAppToken().CreatePayment(basePayment);
-                Assert.IsNotNull(result);
-                Assert.IsNotNull(result.Id);
+                Assert.NotNull(result);
+                Assert.NotEqual(0, result.Id);
 
                 Console.WriteLine("Payment id: {0}", result.Id);
                 Console.WriteLine("Payment gw_url: {0}", result.GwUrl);
@@ -52,7 +52,7 @@ namespace GoPay.Tests
         }
 
 
-        //[TestMethod()]
+        [Fact]
         public void GPConnectorTestVoidRecurrency()
         {
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
@@ -60,7 +60,7 @@ namespace GoPay.Tests
             try
             {
                 var result = connector.GetAppToken().VoidRecurrency(id);
-                Assert.IsNotNull(result.Id);
+                Assert.NotEqual(0, result.Id);
 
                 Console.WriteLine("Void Recurrency result: {0}", result);
             }

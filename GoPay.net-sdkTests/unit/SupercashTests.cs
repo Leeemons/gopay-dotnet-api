@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using GoPay.Supercash;
+using Xunit;
 
 namespace GoPay.Tests
-{
-    [TestClass()]
+{    
     public class SupercashTests
     {
 
-        //[TestMethod()]
+        [Fact]
         public void GPConnectorTestCreateSupercashCoupon()
         {
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
@@ -34,7 +33,7 @@ namespace GoPay.Tests
             try
             {
                 SupercashCoupon result = connector.GetAppToken().CreateSupercashCoupon(couponRequest);
-                Assert.IsNotNull(result);
+                Assert.NotNull(result);
 
                 Console.WriteLine("SC coupon id: {0}", result.SupercashCouponId);
                 Console.WriteLine("SC custom id: {0}", result.CustomId);
@@ -52,7 +51,7 @@ namespace GoPay.Tests
             }
         }
 
-        //[TestMethod()]
+        [Fact]
         public void GPConnectorTestCreateSupercashCouponBatch()
         {
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
@@ -95,7 +94,7 @@ namespace GoPay.Tests
             try
             {
                 SupercashBatchResult result = connector.GetAppToken().CreateSupercashCouponBatch(batchRequest);
-                Assert.IsNotNull(result);
+                Assert.NotNull(result);
                 Console.WriteLine(result.ToString());
             }
             catch (GPClientException ex)
@@ -110,7 +109,7 @@ namespace GoPay.Tests
             }
         }
 
-        //[TestMethod()]
+        [Fact]
         public void GPConnectorTestGetSupercashCouponBatchStatus()
         {
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
@@ -119,7 +118,7 @@ namespace GoPay.Tests
             try
             {
                 SupercashBatchState result = connector.GetAppToken().GetSupercashCouponBatchStatus(batchId);
-                Assert.IsNotNull(result);
+                Assert.NotNull(result);
                 Console.WriteLine(result.ToString());
             }
             catch (GPClientException ex)
@@ -134,7 +133,7 @@ namespace GoPay.Tests
             }
         }
 
-        //[TestMethod()]
+        [Fact]
         public void GPConnectorTestGetSupercashCouponBatch()
         {
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
@@ -143,7 +142,7 @@ namespace GoPay.Tests
             try
             {
                 SupercashBatch result = connector.GetAppToken().GetSupercashCouponBatch(batchId, TestUtils.GOID);
-                Assert.IsNotNull(result);
+                Assert.NotNull(result);
                 Console.WriteLine(result.ToString());
             }
             catch (GPClientException ex)
@@ -158,7 +157,7 @@ namespace GoPay.Tests
             }
         }
 
-        [TestMethod()]
+        [Fact]
         public void GPConnectorTestFindSupercashCoupons()
         {
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
@@ -168,7 +167,7 @@ namespace GoPay.Tests
             try
             {
                 SupercashBatch result = connector.GetAppToken().FindSupercashCoupons(TestUtils.GOID, paymentSessionIds);
-                Assert.IsNotNull(result);
+                Assert.NotNull(result);
                 Console.WriteLine(result.ToString());
             }
             catch (GPClientException ex)
@@ -184,7 +183,7 @@ namespace GoPay.Tests
         }
 
 
-        //[TestMethod()]
+        [Fact]
         public void GPConnectorTestGetSupercashCoupon()
         {
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
@@ -193,7 +192,7 @@ namespace GoPay.Tests
             try
             {
                 SupercashPayment result = connector.GetAppToken().GetSupercashCoupon(couponId);
-                Assert.IsNotNull(result);
+                Assert.NotNull(result);
                 Console.WriteLine(result.ToString());
             }
             catch (GPClientException ex)

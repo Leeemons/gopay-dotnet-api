@@ -1,18 +1,18 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿
 using System;
 using GoPay.Common;
 using GoPay.Model.Payments;
 using GoPay.Model.Payment;
 using System.Collections.Generic;
+using Xunit;
 
 namespace GoPay.Tests
 
-{
-    [TestClass()]
+{    
     public class OnDemandPaymentTests
     {
 
-        //[TestMethod()]
+        [Fact]
         public void GPConnectorTestOnDemand()
         {
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
@@ -30,8 +30,8 @@ namespace GoPay.Tests
             try
             {
                 Payment result = connector.GetAppToken().CreatePayment(basePayment);
-                Assert.IsNotNull(result);
-                Assert.IsNotNull(result.Id);
+                Assert.NotNull(result);
+                Assert.NotEqual(0, result.Id);
 
                 Console.WriteLine("Payment id: {0}", result.Id);
                 Console.WriteLine("Payment gw_url: {0}", result.GwUrl);
@@ -51,7 +51,7 @@ namespace GoPay.Tests
             }
         }
 
-        [TestMethod()]
+        [Fact]
         public void GPConnectorTestNextOnDemand()
         {
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);

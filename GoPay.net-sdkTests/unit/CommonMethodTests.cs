@@ -1,18 +1,18 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿
 using System;
 using GoPay.Common;
 using GoPay.Model.Payments;
 using GoPay.Model.Payment;
 using GoPay.Account;
 using System.Collections.Generic;
+using Xunit;
 
 namespace GoPay.Tests
-{
-    [TestClass()]
+{    
     public class CommonMethodTests
     {
 
-        //[TestMethod()]
+        [Fact]
         public void GPConnectorTest()
         {
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
@@ -20,12 +20,12 @@ namespace GoPay.Tests
 
             Console.WriteLine("Token expires in: {0}", connector.AccessToken.ExpiresIn);
 
-            Assert.IsNotNull(connector.AccessToken);
-            Assert.IsNotNull(connector.AccessToken.Token);
+            Assert.NotNull(connector.AccessToken);
+            Assert.NotNull(connector.AccessToken.Token);
         }
 
 
-        //[TestMethod()]
+        [Fact]
         public void GPConnectorTestStatus()
         {
             long id = 3049249619;
@@ -34,7 +34,7 @@ namespace GoPay.Tests
             try
             {
                 var payment = connector.GetAppToken().PaymentStatus(id);
-                Assert.IsNotNull(payment.Id);
+                Assert.NotEqual(0, payment.Id);
 
                 Console.WriteLine("Payment id: {0}", payment.Id);
                 Console.WriteLine("Payment gw_url: {0}", payment.GwUrl);
@@ -56,7 +56,7 @@ namespace GoPay.Tests
             }
         }
 
-        [TestMethod()]
+        [Fact]
         public void GPConnectorTestPaymentInstrumentRoot()
         {
 
@@ -65,7 +65,7 @@ namespace GoPay.Tests
             try
             {
                 PaymentInstrumentRoot instrumentsList = connector.GetAppToken().GetPaymentInstruments(TestUtils.GOID, Currency.CZK);
-                Assert.IsNotNull(instrumentsList);
+                Assert.NotNull(instrumentsList);
 
                 Console.WriteLine("List of enabled payment instruments for shop with go_id: {0} - OK", TestUtils.GOID);
                 Console.WriteLine(instrumentsList.ToString());
@@ -82,7 +82,7 @@ namespace GoPay.Tests
             }
         }
 
-        //[TestMethod()]
+        [Fact]
         public void GPConnectorTestStatementGenerating()
         {
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
@@ -99,7 +99,7 @@ namespace GoPay.Tests
             try
             {
                 byte[] statement = connector.GetAppToken().GetStatement(accountStatement);
-                Assert.IsNotNull(statement);
+                Assert.NotNull(statement);
 
                 string content = System.Text.Encoding.UTF8.GetString(statement);
 

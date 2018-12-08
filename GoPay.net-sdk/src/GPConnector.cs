@@ -51,7 +51,7 @@ namespace GoPay
         /// <exception cref="GPClientException"></exception>
         public GPConnector GetAppToken(string scope)
         {
-            var restRequest = new RestSharp.Newtonsoft.Json.RestRequest(@"/oauth2/token", Method.POST);
+            var restRequest = new RestSharp.Serializers.Newtonsoft.Json.RestRequest(@"/oauth2/token", Method.POST);
             restRequest.RequestFormat = DataFormat.Json;
             restRequest.AddHeader("Accept", "application/json");
             restRequest.JsonSerializer.ContentType = "application/x-www-form-urlencoded";
@@ -366,7 +366,7 @@ namespace GoPay
         private IRestRequest CreateRestRequest(string url, string contentType, Parameter parameter, Method method = Method.POST)
         {
             
-            var restRequest = new RestSharp.Newtonsoft.Json.RestRequest(url, method);
+            var restRequest = new RestSharp.Serializers.Newtonsoft.Json.RestRequest(url, method);
             if (parameter != null) { 
                 restRequest.AddParameter(parameter);
             }

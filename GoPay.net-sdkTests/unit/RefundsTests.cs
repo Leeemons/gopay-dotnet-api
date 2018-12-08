@@ -1,17 +1,17 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿
 using System;
 using GoPay.Common;
 using GoPay.Model.Payments;
 using GoPay.Model.Payment;
 using System.Collections.Generic;
+using Xunit;
 
 namespace GoPay.Tests
-{
-    [TestClass()]
+{    
     public class RefundsTests
     {
 
-        [TestMethod()]
+        [Fact]
         public void GPConnectorTestRefund()
         {
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
@@ -19,8 +19,8 @@ namespace GoPay.Tests
             try
             {
                 var refundResult = connector.GetAppToken().RefundPayment(id, 1000);
-                Assert.IsNotNull(refundResult);
-                Assert.IsNotNull(refundResult.Id);
+                Assert.NotNull(refundResult);
+                Assert.NotEqual(0, refundResult.Id);
 
                 Console.WriteLine("Refund with amount result: {0}", refundResult);
             }
