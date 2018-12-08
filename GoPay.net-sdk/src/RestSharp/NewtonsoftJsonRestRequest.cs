@@ -7,25 +7,25 @@ namespace GoPay.RestSharp
     {
         public NewtonsoftJsonRestRequest()
         {
-            IntializeJsonSerializer();
+            InitSerializer();
         }
 
         public NewtonsoftJsonRestRequest(Method method) : base(method)
         {
-            IntializeJsonSerializer();
+            InitSerializer();
         }
 
         public NewtonsoftJsonRestRequest(string resource, Method method = Method.GET, DataFormat dataFormat = DataFormat.Xml) : base(resource, method, dataFormat)
         {
-            IntializeJsonSerializer();
+            InitSerializer();
         }
 
         public NewtonsoftJsonRestRequest(Uri resource, Method method = Method.GET, DataFormat dataFormat = DataFormat.Xml) : base(resource, method, dataFormat)
         {
-            IntializeJsonSerializer();
+            InitSerializer();
         }
 
-        protected void IntializeJsonSerializer()
+        protected void InitSerializer()
         {
             JsonSerializer = new NewtonsoftJsonSerializer();
         }
