@@ -13,7 +13,7 @@ Detailed guide: [https://doc.gopay.com](https://doc.gopay.com)
 This library is avalaible from NuGet Package Manager 
 
 ```
-PM> Install-Package GOPAY.NET
+PM> Install-Package GoPay.NETCore
 ```
 
 # Dependencies #
