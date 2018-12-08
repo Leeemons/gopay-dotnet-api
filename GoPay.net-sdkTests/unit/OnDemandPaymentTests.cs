@@ -1,25 +1,57 @@
-﻿
-using System;
+﻿using System;
 using GoPay.Common;
 using GoPay.Model.Payments;
-using GoPay.Model.Payment;
-using System.Collections.Generic;
 using Xunit;
 
 namespace GoPay.Tests
 
-{    
+{
     public class OnDemandPaymentTests
     {
+        [Fact]
+        public void GPConnectorTestNextOnDemand()
+        {
+            var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
+
+            try
+            {
+                var nextPayment = new NextPayment
+                {
+                    OrderNumber = "OnDemand4321",
+                    Amount = 4000,
+                    Currency = Currency.CZK,
+                    OrderDescription = "OnDemand4321Description"
+                };
+                nextPayment.Items.Add(new OrderItem {Name = "OnDemand First Item", Amount = 2000, Count = 2});
+
+                var onDemandPayment = connector.GetAppToken().CreateRecurrentPayment(3049249957, nextPayment);
+
+                Console.WriteLine("OnDemand payment id: {0}", onDemandPayment.Id);
+                Console.WriteLine("OnDemand payment gw_url: {0}", onDemandPayment.GwUrl);
+                Console.WriteLine("OnDemand Payment instrument: {0}", onDemandPayment.PaymentInstrument);
+                Console.WriteLine("OnDemand recurrence: {0}", onDemandPayment.Recurrence);
+                Console.WriteLine("OnDemand amount: {0}", onDemandPayment.Amount);
+            }
+            catch (GPClientException exception)
+            {
+                Console.WriteLine("Creating next on demand payment ERROR");
+                var err = exception.Error;
+                var date = err.DateIssued;
+                foreach (var element in err.ErrorMessages)
+                {
+                    //
+                }
+            }
+        }
 
         [Fact]
         public void GPConnectorTestOnDemand()
         {
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
 
-            BasePayment basePayment = CreatePaymentTests.createBasePayment();
+            var basePayment = CreatePaymentTests.createBasePayment();
 
-            Recurrence onDemandRecurrence = new Recurrence()
+            var onDemandRecurrence = new Recurrence
             {
                 Cycle = RecurrenceCycle.ON_DEMAND,
                 DateTo = new DateTime(2018, 4, 1)
@@ -29,7 +61,7 @@ namespace GoPay.Tests
 
             try
             {
-                Payment result = connector.GetAppToken().CreatePayment(basePayment);
+                var result = connector.GetAppToken().CreatePayment(basePayment);
                 Assert.NotNull(result);
                 Assert.NotEqual(0, result.Id);
 
@@ -43,50 +75,12 @@ namespace GoPay.Tests
             {
                 Console.WriteLine("Creating OnDemand payment ERROR");
                 var err = exception.Error;
-                DateTime date = err.DateIssued;
+                var date = err.DateIssued;
                 foreach (var element in err.ErrorMessages)
                 {
                     //
                 }
             }
         }
-
-        [Fact]
-        public void GPConnectorTestNextOnDemand()
-        {
-            var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
-
-            try
-            {
-                NextPayment nextPayment = new NextPayment()
-                {
-                    OrderNumber = "OnDemand4321",
-                    Amount = 4000,
-                    Currency = Currency.CZK,
-                    OrderDescription = "OnDemand4321Description",
-                };
-                nextPayment.Items.Add(new OrderItem() { Name = "OnDemand First Item", Amount = 2000, Count = 2 });
-
-                Payment onDemandPayment = connector.GetAppToken().CreateRecurrentPayment(3049249957, nextPayment);
-
-                Console.WriteLine("OnDemand payment id: {0}", onDemandPayment.Id);
-                Console.WriteLine("OnDemand payment gw_url: {0}", onDemandPayment.GwUrl);
-                Console.WriteLine("OnDemand Payment instrument: {0}", onDemandPayment.PaymentInstrument);
-                Console.WriteLine("OnDemand recurrence: {0}", onDemandPayment.Recurrence);
-                Console.WriteLine("OnDemand amount: {0}", onDemandPayment.Amount);
-
-            }
-            catch (GPClientException exception)
-            {
-                Console.WriteLine("Creating next on demand payment ERROR");
-                var err = exception.Error;
-                DateTime date = err.DateIssued;
-                foreach (var element in err.ErrorMessages)
-                {
-                    //
-                }
-            }
-        }
-
     }
 }

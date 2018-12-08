@@ -1,35 +1,34 @@
 ﻿using System;
-using GoPay.Common;
-using GoPay.Model.Payments;
-using GoPay.Model.Payment;
 using System.Collections.Generic;
+using GoPay.Common;
+using GoPay.Model.Payment;
+using GoPay.Model.Payments;
 using Xunit;
 
 namespace GoPay.Tests
 
-{    
+{
     public class CreatePaymentTests
     {
-
         public static BasePayment createBasePayment()
         {
-            List<AdditionalParam> addParams = new List<AdditionalParam>();
-            addParams.Add(new AdditionalParam() { Name = "AdditionalKey", Value = "AdditionalValue" });
+            var addParams = new List<AdditionalParam>();
+            addParams.Add(new AdditionalParam {Name = "AdditionalKey", Value = "AdditionalValue"});
 
-            List<OrderItem> addItems = new List<OrderItem>();
-            addItems.Add(new OrderItem() { Name = "First Item", Amount = 1700, Count = 1 });
+            var addItems = new List<OrderItem>();
+            addItems.Add(new OrderItem {Name = "First Item", Amount = 1700, Count = 1});
 
-            List<PaymentInstrument> allowedInstruments = new List<PaymentInstrument>();
+            var allowedInstruments = new List<PaymentInstrument>();
             allowedInstruments.Add(PaymentInstrument.BANK_ACCOUNT);
             allowedInstruments.Add(PaymentInstrument.PAYMENT_CARD);
 
-            List<string> swifts = new List<string>();
+            var swifts = new List<string>();
             swifts.Add("GIBACZPX");
             swifts.Add("RZBCCZPP");
 
-            BasePayment basePayment = new BasePayment()
+            var basePayment = new BasePayment
             {
-                Callback = new Callback()
+                Callback = new Callback
                 {
                     ReturnUrl = @"https://eshop123.cz/return",
                     NotificationUrl = @"https://eshop123.cz/notify"
@@ -46,19 +45,19 @@ namespace GoPay.Tests
 
                 Items = addItems,
 
-                Target = new Target()
+                Target = new Target
                 {
                     GoId = TestUtils.GOID,
                     Type = Target.TargetType.ACCOUNT
                 },
 
-                Payer = new Payer()
+                Payer = new Payer
                 {
                     AllowedPaymentInstruments = allowedInstruments,
                     AllowedSwifts = swifts,
                     //DefaultPaymentInstrument = PaymentInstrument.BANK_ACCOUNT,
                     //PaymentInstrument = PaymentInstrument.BANK_ACCOUNT,
-                    Contact = new PayerContact()
+                    Contact = new PayerContact
                     {
                         Email = "test@test.gopay.cz"
                     }
@@ -74,10 +73,10 @@ namespace GoPay.Tests
         {
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
 
-            BasePayment basePayment = createBasePayment();
+            var basePayment = createBasePayment();
             try
             {
-                Payment result = connector.GetAppToken().CreatePayment(basePayment);
+                var result = connector.GetAppToken().CreatePayment(basePayment);
                 Assert.NotNull(result);
                 Assert.NotEqual(0, result.Id);
 
@@ -90,7 +89,7 @@ namespace GoPay.Tests
             {
                 Console.WriteLine("Create payment ERROR");
                 var err = exception.Error;
-                DateTime date = err.DateIssued;
+                var date = err.DateIssued;
                 foreach (var element in err.ErrorMessages)
                 {
                     //
@@ -102,13 +101,13 @@ namespace GoPay.Tests
         public void GPCOnnectorTestPaymentStatis()
         {
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
-            BasePayment basePayment = createBasePayment();
+            var basePayment = createBasePayment();
 
             try
             {
-                Payment result = connector.GetAppToken().CreatePayment(basePayment);
-                Payment payment = connector.GetAppToken().PaymentStatus(result.Id);
-                
+                var result = connector.GetAppToken().CreatePayment(basePayment);
+                var payment = connector.GetAppToken().PaymentStatus(result.Id);
+
                 Assert.NotNull(result);
                 Assert.NotEqual(0, result.Id);
 
@@ -122,7 +121,7 @@ namespace GoPay.Tests
             {
                 Console.WriteLine("Create payment ERROR");
                 var err = exception.Error;
-                DateTime date = err.DateIssued;
+                var date = err.DateIssued;
                 foreach (var element in err.ErrorMessages)
                 {
                     //

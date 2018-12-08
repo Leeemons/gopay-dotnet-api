@@ -1,16 +1,10 @@
-﻿
-using System;
-using GoPay.Common;
-using GoPay.Model.Payments;
-using GoPay.Model.Payment;
-using System.Collections.Generic;
+﻿using System;
 using Xunit;
 
 namespace GoPay.Tests
-{    
+{
     public class RefundsTests
     {
-
         [Fact]
         public void GPConnectorTestRefund()
         {
@@ -28,7 +22,7 @@ namespace GoPay.Tests
             {
                 Console.WriteLine("CHYBA refundu");
                 var err = exception.Error;
-                DateTime date = err.DateIssued;
+                var date = err.DateIssued;
                 foreach (var element in err.ErrorMessages)
                 {
                     //Handle

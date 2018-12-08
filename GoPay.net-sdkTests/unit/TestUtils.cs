@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace GoPay.Tests
+﻿namespace GoPay.Tests
 
 {
     public class TestUtils
     {
-
         /*
         public const string CLIENT_ID = "1744960415";
         public const string CLIENT_SECRET = "h9wyRz2s";

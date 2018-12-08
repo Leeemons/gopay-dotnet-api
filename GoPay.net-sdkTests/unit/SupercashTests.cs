@@ -1,22 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using GoPay.Supercash;
 using Xunit;
 
 namespace GoPay.Tests
-{    
+{
     public class SupercashTests
     {
-
         [Fact]
         public void GPConnectorTestCreateSupercashCoupon()
         {
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
 
-            SupercashCouponRequest couponRequest = new SupercashCouponRequest()
+            var couponRequest = new SupercashCouponRequest
             {
                 GoId = TestUtils.GOID,
                 SubType = SubType.POSTPAID,
@@ -32,7 +28,7 @@ namespace GoPay.Tests
 
             try
             {
-                SupercashCoupon result = connector.GetAppToken().CreateSupercashCoupon(couponRequest);
+                var result = connector.GetAppToken().CreateSupercashCoupon(couponRequest);
                 Assert.NotNull(result);
 
                 Console.WriteLine("SC coupon id: {0}", result.SupercashCouponId);
@@ -43,7 +39,7 @@ namespace GoPay.Tests
             {
                 Console.WriteLine("Create Supercash Coupon ERROR");
                 var err = ex.Error;
-                DateTime date = err.DateIssued;
+                var date = err.DateIssued;
                 foreach (var element in err.ErrorMessages)
                 {
                     //
@@ -56,44 +52,45 @@ namespace GoPay.Tests
         {
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
 
-            SupercashBatchRequest batchRequest = new SupercashBatchRequest()
+            var batchRequest = new SupercashBatchRequest
             {
                 GoId = TestUtils.GOID,
                 BatchNotificationUrl = "http://www.notify.cz/super",
-                Defaults = new SupercashBatchItem()
+                Defaults = new SupercashBatchItem
                 {
                     SubType = SubType.POSTPAID,
-                    Amounts = new List<long> { 300, 400, 500, 600, 700, 800, 900, 1000 },
+                    Amounts = new List<long> {300, 400, 500, 600, 700, 800, 900, 1000},
                     OrderDescription = "Supercash Coupon Batch Test"
                 },
-                Coupons = new List<SupercashBatchItem> {
-                    new SupercashBatchItem()
+                Coupons = new List<SupercashBatchItem>
+                {
+                    new SupercashBatchItem
                     {
                         BuyerEmail = "zakaznik1@example.com",
                         CustomId = "ID-123457",
                         BuyerPhone = "+420777666111",
-                        Amounts = new List<long> { 100 }
+                        Amounts = new List<long> {100}
                     },
-                    new SupercashBatchItem()
+                    new SupercashBatchItem
                     {
                         BuyerEmail = "zakaznik2@example.com",
                         CustomId = "ID-123458",
                         BuyerPhone = "+420777666222",
-                        Amounts = new List<long> { 200 }
+                        Amounts = new List<long> {200}
                     },
-                    new SupercashBatchItem()
+                    new SupercashBatchItem
                     {
                         BuyerEmail = "zakaznik3@example.com",
                         CustomId = "ID-123459",
                         BuyerPhone = "+420777666333",
-                        Amounts = new List<long> { 300 }
+                        Amounts = new List<long> {300}
                     }
                 }
             };
 
             try
             {
-                SupercashBatchResult result = connector.GetAppToken().CreateSupercashCouponBatch(batchRequest);
+                var result = connector.GetAppToken().CreateSupercashCouponBatch(batchRequest);
                 Assert.NotNull(result);
                 Console.WriteLine(result.ToString());
             }
@@ -101,55 +98,7 @@ namespace GoPay.Tests
             {
                 Console.WriteLine("Create Supercash Coupon Batch ERROR");
                 var err = ex.Error;
-                DateTime date = err.DateIssued;
-                foreach (var element in err.ErrorMessages)
-                {
-                    //
-                }
-            }
-        }
-
-        [Fact]
-        public void GPConnectorTestGetSupercashCouponBatchStatus()
-        {
-            var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
-            var batchId = 961667719;
-
-            try
-            {
-                SupercashBatchState result = connector.GetAppToken().GetSupercashCouponBatchStatus(batchId);
-                Assert.NotNull(result);
-                Console.WriteLine(result.ToString());
-            }
-            catch (GPClientException ex)
-            {
-                Console.WriteLine("Get Supercash Coupon Batch Status ERROR");
-                var err = ex.Error;
-                DateTime date = err.DateIssued;
-                foreach (var element in err.ErrorMessages)
-                {
-                    //
-                }
-            }
-        }
-
-        [Fact]
-        public void GPConnectorTestGetSupercashCouponBatch()
-        {
-            var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
-            var batchId = 961667719;
-
-            try
-            {
-                SupercashBatch result = connector.GetAppToken().GetSupercashCouponBatch(batchId, TestUtils.GOID);
-                Assert.NotNull(result);
-                Console.WriteLine(result.ToString());
-            }
-            catch (GPClientException ex)
-            {
-                Console.WriteLine("Get Supercash Coupon Batch ERROR");
-                var err = ex.Error;
-                DateTime date = err.DateIssued;
+                var date = err.DateIssued;
                 foreach (var element in err.ErrorMessages)
                 {
                     //
@@ -166,7 +115,7 @@ namespace GoPay.Tests
 
             try
             {
-                SupercashBatch result = connector.GetAppToken().FindSupercashCoupons(TestUtils.GOID, paymentSessionIds);
+                var result = connector.GetAppToken().FindSupercashCoupons(TestUtils.GOID, paymentSessionIds);
                 Assert.NotNull(result);
                 Console.WriteLine(result.ToString());
             }
@@ -174,7 +123,7 @@ namespace GoPay.Tests
             {
                 Console.WriteLine("Find Supercash Coupons ERROR");
                 var err = ex.Error;
-                DateTime date = err.DateIssued;
+                var date = err.DateIssued;
                 foreach (var element in err.ErrorMessages)
                 {
                     //
@@ -191,7 +140,7 @@ namespace GoPay.Tests
 
             try
             {
-                SupercashPayment result = connector.GetAppToken().GetSupercashCoupon(couponId);
+                var result = connector.GetAppToken().GetSupercashCoupon(couponId);
                 Assert.NotNull(result);
                 Console.WriteLine(result.ToString());
             }
@@ -199,7 +148,7 @@ namespace GoPay.Tests
             {
                 Console.WriteLine("Get Supercash Coupon ERROR");
                 var err = ex.Error;
-                DateTime date = err.DateIssued;
+                var date = err.DateIssued;
                 foreach (var element in err.ErrorMessages)
                 {
                     //
@@ -207,8 +156,52 @@ namespace GoPay.Tests
             }
         }
 
+        [Fact]
+        public void GPConnectorTestGetSupercashCouponBatch()
+        {
+            var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
+            var batchId = 961667719;
 
+            try
+            {
+                var result = connector.GetAppToken().GetSupercashCouponBatch(batchId, TestUtils.GOID);
+                Assert.NotNull(result);
+                Console.WriteLine(result.ToString());
+            }
+            catch (GPClientException ex)
+            {
+                Console.WriteLine("Get Supercash Coupon Batch ERROR");
+                var err = ex.Error;
+                var date = err.DateIssued;
+                foreach (var element in err.ErrorMessages)
+                {
+                    //
+                }
+            }
+        }
 
+        [Fact]
+        public void GPConnectorTestGetSupercashCouponBatchStatus()
+        {
+            var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
+            var batchId = 961667719;
 
+            try
+            {
+                var result = connector.GetAppToken().GetSupercashCouponBatchStatus(batchId);
+                Assert.NotNull(result);
+                Console.WriteLine(result.ToString());
+            }
+            catch (GPClientException ex)
+            {
+                Console.WriteLine("Get Supercash Coupon Batch Status ERROR");
+                var err = ex.Error;
+                var date = err.DateIssued;
+                foreach (var element in err.ErrorMessages)
+                {
+                    //
+                }
+            }
+        }
     }
 }

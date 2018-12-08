@@ -1,24 +1,19 @@
-﻿
-using System;
-using GoPay.Common;
+﻿using System;
 using GoPay.Model.Payments;
-using GoPay.Model.Payment;
-using System.Collections.Generic;
 using Xunit;
 
 namespace GoPay.Tests
-{    
+{
     public class RecurrentPaymentTests
     {
-
         [Fact]
         public void GPConnectorTestCreateRecurrentPayment()
         {
             var connector = new GPConnector(TestUtils.API_URL, TestUtils.CLIENT_ID, TestUtils.CLIENT_SECRET);
 
-            BasePayment basePayment = CreatePaymentTests.createBasePayment();
+            var basePayment = CreatePaymentTests.createBasePayment();
 
-            Recurrence recurrence = new Recurrence()
+            var recurrence = new Recurrence
             {
                 Cycle = RecurrenceCycle.WEEK,
                 Period = 1,
@@ -29,7 +24,7 @@ namespace GoPay.Tests
 
             try
             {
-                Payment result = connector.GetAppToken().CreatePayment(basePayment);
+                var result = connector.GetAppToken().CreatePayment(basePayment);
                 Assert.NotNull(result);
                 Assert.NotEqual(0, result.Id);
 
@@ -37,13 +32,12 @@ namespace GoPay.Tests
                 Console.WriteLine("Payment gw_url: {0}", result.GwUrl);
                 Console.WriteLine("Payment instrument: {0}", result.PaymentInstrument);
                 Console.WriteLine("Recurrence: {0}", result.Recurrence);
-
             }
             catch (GPClientException exception)
             {
                 Console.WriteLine("Recurrent payment ERROR");
                 var err = exception.Error;
-                DateTime date = err.DateIssued;
+                var date = err.DateIssued;
                 foreach (var element in err.ErrorMessages)
                 {
                     //
@@ -68,13 +62,12 @@ namespace GoPay.Tests
             {
                 Console.WriteLine("Void recurrency ERROR");
                 var err = exception.Error;
-                DateTime date = err.DateIssued;
+                var date = err.DateIssued;
                 foreach (var element in err.ErrorMessages)
                 {
                     //Handle
                 }
             }
         }
-
     }
 }
