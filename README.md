@@ -6,7 +6,7 @@ Detailed guide: [https://doc.gopay.com](https://doc.gopay.com)
 
 # Requirements
 
- - .NET 4.5+
+ - netstandard20
 
 # NuGet #
 
@@ -20,7 +20,6 @@ PM> Install-Package GOPAY.NET
 
 - Newtonsoft.Json
 - Restsharp
-- Restsharp.Newtonsoft.Json
 
 # Namespace #
 
