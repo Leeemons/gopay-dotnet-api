@@ -5,6 +5,8 @@
     <Authors>Leemons</Authors>    
     <Product>GoPay.NETCore</Product>    
     <IsPackable>true</IsPackable>
+    <RepositoryUrl>https://github.com/Leeemons/gopay-dotnetcore-api/</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
