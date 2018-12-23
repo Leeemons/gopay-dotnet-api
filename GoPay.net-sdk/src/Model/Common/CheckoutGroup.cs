@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Reflection;
 using GoPay.Model.Payments;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json;
-using System.Runtime.Serialization;
 
 namespace GoPay.Common
 {
@@ -19,7 +16,7 @@ namespace GoPay.Common
         [GroupCaption("wallet"), EnumSetPaymentInstruments(PaymentInstrument.GOPAY, PaymentInstrument.BITCOIN, PaymentInstrument.PAYPAL)]
         WALLET,
 
-        [GroupCaption("others"), EnumSetPaymentInstruments(PaymentInstrument.PRSMS, PaymentInstrument.MPAYMENT, PaymentInstrument.PAYSAFECARD, PaymentInstrument.SUPERCASH)]
+        [GroupCaption("others"), EnumSetPaymentInstruments(PaymentInstrument.PRSMS, PaymentInstrument.MPAYMENT, PaymentInstrument.PAYSAFECARD, PaymentInstrument.SUPERCASH, PaymentInstrument.GPAY)]
         OTHERS
 
     }
