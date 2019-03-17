@@ -1,19 +1,14 @@
-<<<<<<< HEAD
-﻿using System;
+using System;
 using Xunit;
-=======
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using GoPay.Model.Payments;
 using GoPay.Model.Payment;
->>>>>>> d1b6b8afd50c2c26104edca91a82d5cead6fd345
 
 namespace GoPay.Tests
 
 {
     public class PreAuthorizationTests
     {
-<<<<<<< HEAD
         [Fact]
         public void GPConnectorTestCapturePayment()
         {
@@ -37,9 +32,6 @@ namespace GoPay.Tests
                 }
             }
         }
-=======
-        
->>>>>>> d1b6b8afd50c2c26104edca91a82d5cead6fd345
 
         [Fact]
         public void GPConnectorTestCreatePreAuthorizedPayment()
