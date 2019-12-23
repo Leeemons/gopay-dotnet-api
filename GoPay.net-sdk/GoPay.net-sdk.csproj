@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>    
-    <TargetFramework>netstandard20</TargetFramework>    
+    <TargetFrameworks>netstandard20;netstandard21</TargetFrameworks>    
     <PackageId>GoPay.NETCore</PackageId>    
     <Authors>Leemons</Authors>    
     <Product>GoPay.NETCore</Product>    
