@@ -7,6 +7,7 @@ Detailed guide: [https://doc.gopay.com](https://doc.gopay.com)
 # Requirements
 
  - netstandard20
+ - netstandard21
 
 # NuGet #
 
